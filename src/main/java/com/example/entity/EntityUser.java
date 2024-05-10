@@ -14,10 +14,10 @@ public class EntityUser {
     int id;
 
     @Column
-    String user_name;
+    String username;
 
     @Column
-    String user_age;
+    String userage;
 
 
     public int getId() {
@@ -29,37 +29,37 @@ public class EntityUser {
     }
 
     public String getUser_name() {
-        return user_name;
+        return username;
     }
 
     public void setUser_name(String user_name) {
-        this.user_name = user_name;
+        this.username = user_name;
     }
 
     public String getUser_age() {
-        return user_age;
+        return userage;
     }
 
     public void setUser_age(String user_age) {
-        this.user_age = user_age;
+        this.userage = user_age;
     }
 
     public EntityUser() {
         this.id = -1;
-        this.user_name = "";
-        this.user_age = "";
+        this.username = "";
+        this.userage = "";
     }
 
     public EntityUser(int id, String user_name, String user_age) {
         super();
         this.id = -1;
-        this.user_name = user_name;
-        this.user_age = user_age;
+        this.username = user_name;
+        this.userage = user_age;
     }
 
     @Override
     public String toString() {
-        return "EntityUser [id=" + id + ", user_name=" + user_name + ", user_age=" + user_age + "]";
+        return "EntityUser [id=" + id + ", user_name=" + username + ", user_age=" + userage + "]";
     }
 
 }

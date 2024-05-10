@@ -22,7 +22,7 @@ public class ServiceUser {
         System.out.println(user.User_Name);
         System.out.println(user.User_Age);
 
-        List<EntityUser> list = userRopo.findUserPass(user.User_Name, user.User_Age);
+        List<EntityUser> list = userRopo.findByUsernameAndUserage(user.User_Name, user.User_Age);
 
         if(list.size()==0)
             return false;
@@ -30,6 +30,9 @@ public class ServiceUser {
             return true;
     }
 
+    public void Repass(String id, String pass, String repass){
+        List<EntityUser> list = userRopo.findByUsernameAndUserage(id,pass);
+    }
     public Iterable<EntityUser> GetAllUser(){
         return userRopo.findAll();
     }

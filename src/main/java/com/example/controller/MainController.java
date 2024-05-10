@@ -70,6 +70,11 @@ public class MainController {
 
         return "Login";
     }
+    @GetMapping("PassChange/{id}/{pass}/{repass}")
+    public String userPassChange(@PathVariable String id, @PathVariable String pass, @PathVariable String repass){
+        _serviceUser.Repass(id, pass, repass);
+        return "Login";
+    }
 
     @PostMapping("/Login")
     public String userLogin(/*@RequestBody*/ DTOUser user, Model m, HttpSession session) {
@@ -88,6 +93,7 @@ public class MainController {
             else
                 return "Login";
         }
+
 
     }
 //    @PostMapping("/dtoTest")
