@@ -30,10 +30,23 @@ public class ServiceUser {
             return true;
     }
 
-    public void Repass(String id, String pass, String repass){
+    public void Repass(String id, String pass, String rePass){
         List<EntityUser> list = userRopo.findByUsernameAndUserage(id,pass);
+
+        if(list.size()>0){
+            list.get(0).setUser_age(rePass);
+            userRopo.save(list.get(0));
+        }
     }
     public Iterable<EntityUser> GetAllUser(){
         return userRopo.findAll();
+    }
+
+    public void Deleteid(String id,String pass){
+        List<EntityUser> list = userRopo.findByUsernameAndUserage(id,pass);
+        if (list.size()>0) {
+            userRopo.delete(list.get(0));
+        }
+
     }
 }

@@ -20,4 +20,6 @@ public interface UserRepository extends CrudRepository<EntityUser, Integer> {
             (String userName, String userPass);
 
 
+
+
 }

@@ -70,7 +70,7 @@ public class MainController {
 
         return "Login";
     }
-    @GetMapping("PassChange/{id}/{pass}/{repass}")
+    @GetMapping("/PassChange/{id}/{pass}/{repass}")
     public String userPassChange(@PathVariable String id, @PathVariable String pass, @PathVariable String repass){
         _serviceUser.Repass(id, pass, repass);
         return "Login";
@@ -94,8 +94,16 @@ public class MainController {
                 return "Login";
         }
 
-
     }
+
+    @GetMapping("/Deleteid/{id}/{pass}")
+    public String userDelete(@PathVariable String id,@PathVariable String pass, HttpSession session)
+    {
+        _serviceUser.Deleteid(id, pass);
+        session.invalidate();
+        return "Login";
+    }
+
 //    @PostMapping("/dtoTest")
 //    @ResponseBody
 //    public String DTOTest(DTOUser user){
