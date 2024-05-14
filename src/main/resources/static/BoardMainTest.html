@@ -55,18 +55,21 @@
     <!-- tr th:each : 행 반복문을 수행하겠다는 의미입니다 [여러 데이터 출력] -->
     <tr th:each="list : ${tableList}">
         <td><span th:text="${list.id}"></span></td>
-        <td><span th:text="${list.user_name}"></span></td>
-        <td><span th:text="${list.user_age}"></span></td>
-        <td><span th:text="${list.id}"></span></td>
+        <td><span th:text="${list.title}"></span></td>
+        <td><span th:text="${list.content}"></span></td>
+        <td><span th:text="${list.date}"></span></td>
     </tr>
     </tbody>
 
 </table>
 <form action="/Logout" method="get">
-<button type="submit">Logout</button>
+    <button type="submit">Logout</button>
 </form>
-<form action="/BoardMain" method="get">
-    <button type="submit">게시판</button>
+<form action="/Write" method="get">
+    <button type="submit">글쓰기</button>
+</form>
+<form action="/Home" method="get">
+    <button type="submit">Home</button>
 </form>
 </body>
 

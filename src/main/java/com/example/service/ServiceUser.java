@@ -47,6 +47,9 @@ public class ServiceUser {
         if (list.size()>0) {
             userRopo.delete(list.get(0));
         }
-
     }
+
+
+
+
 }

@@ -1,41 +1,23 @@
 package com.example.controller;
 
+import com.example.dto.DTOBoard;
 import com.example.dto.DTOUser;
-import com.example.entity.EntityUser;
-import com.example.repository.UserRepository;
+import com.example.service.ServiceBoard;
 import com.example.service.ServiceUser;
-import jakarta.persistence.PostRemove;
 import jakarta.servlet.http.HttpSession;
-import org.hibernate.Remove;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class MainController {
     @Autowired
     ServiceUser _serviceUser;
-
-//    @GetMapping("/hello")
-//    public String Hello(Model m){
-//        m.addAttribute("value","MinSu");
-//        return "template";
-//    }
-//    @GetMapping("/getTest/{id}")
-//    @ResponseBody
-//    public String GetTest(@PathVariable int id){
-//        return String.valueOf(id);
-//    }
-//
-//    @PostMapping("/postTest")
-//    @ResponseBody
-//    public String PostTest(@RequestBody String param){
-//        return param;
+    @Autowired
+    ServiceBoard _serviceBoard;
 
     @GetMapping("/Home")
     public String loginHome(Model m, HttpSession session){
@@ -93,7 +75,6 @@ public class MainController {
             else
                 return "Login";
         }
-
     }
 
     @GetMapping("/Deleteid/{id}/{pass}")
@@ -103,6 +84,61 @@ public class MainController {
         session.invalidate();
         return "Login";
     }
+
+    @GetMapping("board")
+    public String board(Model m, HttpSession session){
+        m.addAttribute("tableList", _serviceBoard.GetAllBoard());
+        return "Mypage";
+    }
+
+    @PostMapping("/Write")
+    public String write(DTOBoard board, Model m, HttpSession session){
+        String currentUserName = (String) session.getAttribute("LoginOK");
+        if(currentUserName != null){
+            board.setWriter(currentUserName);
+            _serviceBoard.Write(board);
+            m.addAttribute("tableList", _serviceBoard.GetAllBoard());
+            return "BoardMain";
+        }else{
+            return "Login";
+        }
+    }
+
+    @GetMapping("/BoardMain")
+    public String BoardMain(Model m, HttpSession session){
+        if(session.getAttribute("LoginOK") == "LoginOK") {
+            m.addAttribute("tableList", _serviceBoard.GetAllBoard());
+            return "BoardMain";
+        }
+        else
+            return "Login";
+    }
+        @GetMapping("/Write")
+        public String getWriteForm(HttpSession session) {
+            String currentUserName = (String) session.getAttribute("LoginOK");
+            if (currentUserName != null) {
+                return "BoardMain";
+            } else {
+                return "Login";
+            }
+        }
+
+//    @GetMapping("/hello")
+//    public String Hello(Model m){
+//        m.addAttribute("value","MinSu");
+//        return "template";
+//    }
+//    @GetMapping("/getTest/{id}")
+//    @ResponseBody
+//    public String GetTest(@PathVariable int id){
+//        return String.valueOf(id);
+//    }
+//
+//    @PostMapping("/postTest")
+//    @ResponseBody
+//    public String PostTest(@RequestBody String param){
+//        return param;
+
 
 //    @PostMapping("/dtoTest")
 //    @ResponseBody
